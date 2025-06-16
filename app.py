@@ -1,17 +1,19 @@
 import streamlit as st
 import tensorflow as tf
+from utils import download_model_from_gdrive
 import numpy as np
 from PIL import Image
 
-# Memuat model dengan caching menggunakan st.cache_resource (dari Streamlit versi terbaru)
-@st.cache_resource
-def load_model():
-    model = tf.keras.models.load_model("D:/Skripsi/scv2/models/efficientnetv2_rempahindo.keras")  # Gunakan forward slash untuk path
-    return model
+model_path = 'model.keras'
+file_id = '16mspKSZnXI3x2ENrW_FmOmei5Y_u0Z_8'
 
-# Memuat model
-model = load_model()
-st.success("Model berhasil dimuat!")
+# Download hanya jika file belum ada
+import os
+if not os.path.exists(model_path):
+    download_model_from_gdrive(file_id, output_path=model_path)
+
+# Load model
+model = tf.keras.models.load_model(model_path)
 
 # Daftar nama kelas sesuai dataset Anda
 class_names = [
