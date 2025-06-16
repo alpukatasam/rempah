@@ -4,7 +4,7 @@ from utils import download_model_from_gdrive
 import numpy as np
 from PIL import Image
 
-model_path = 'model.keras'
+model_path = 'efficientnetv2_rempahindo.keras'
 file_id = '16mspKSZnXI3x2ENrW_FmOmei5Y_u0Z_8'
 
 # Download hanya jika file belum ada
