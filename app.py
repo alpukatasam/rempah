@@ -9,11 +9,13 @@ file_id = '16mspKSZnXI3x2ENrW_FmOmei5Y_u0Z_8'
 
 # Download hanya jika file belum ada
 import os
-if not os.path.exists(model_path):
-    download_model_from_gdrive(file_id, output_path=model_path)
+@st.cache_resource
+def load_model_from_drive(file_id, model_path):
+    if not os.path.exists(model_path):
+        download_model_from_gdrive(file_id, output_path=model_path)
+    return tf.keras.models.load_model(model_path)
 
-# Load model
-model = tf.keras.models.load_model(model_path)
+model = load_model_from_drive(file_id, model_path)
 
 # Daftar nama kelas sesuai dataset Anda
 class_names = [
